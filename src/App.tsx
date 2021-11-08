@@ -1,11 +1,13 @@
-import "./App.css";
+import React, { FC } from 'react';
+import MainPage from './pages/MainPage';
+import './App.css';
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <MainPage />
     </div>
   );
-}
+};
 
 export default App;
