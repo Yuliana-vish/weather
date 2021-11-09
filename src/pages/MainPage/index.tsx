@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import Weather from '../../components/Weather';
 import { WeatherData } from '../../interfaces';
+
 import s from './MainPage.module.scss';
 
 const MainPage: FC = () => {
@@ -13,8 +14,6 @@ const MainPage: FC = () => {
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [data, setData] = useState<WeatherData>();
-
-  // const [loading, setloading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,21 +29,17 @@ const MainPage: FC = () => {
         .then(res => res.data)
         .then(result => {
           setData(result);
-          // console.log('result', result);
         });
     };
-    // console.log('Latitude is:', lat);
-    // console.log('Longitude is:', long);
     fetchData();
-    // console.log('data', data);
   }, [lat, lon]);
 
   return (
     // const weatherData=data
 
-    <div className={s.main__page}>
+    <div className={s.mainPage}>
       {!data ? (
-        <div>
+        <div className={s.loader}>
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -54,7 +49,6 @@ const MainPage: FC = () => {
           />
         </div>
       ) : (
-        // <Weather weatherData={data} />
         <div className={s.weather__container}>
           <Weather weatherData={data} />
         </div>
