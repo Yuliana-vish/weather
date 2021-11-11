@@ -1,12 +1,15 @@
-.main__page {
+.mainPage {
     height: 700px;
     display: flex;
     justify-content: center;
-    // align-items: center;
+    align-items: center;
     background-color: rgba(199, 199, 199, 0.433);
 }
 .weather__container {
-    margin-top: 50px;
-    width: 500px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 10px;
+    width: 30%;
     padding: 30px;
 }

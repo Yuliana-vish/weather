@@ -1,31 +1,76 @@
-.weather__card {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.weather {
+    &__color {
+        width: 80%;
+        // height: 40%;
+        padding: 40px 20px;
+        border-radius: 9px;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        padding: 50px 10px;
+        text-align: start;
+        font-family: Roboto, "Helvetica Neue";
+        font-size: 16px;
+        color: #8c9294;
+        background-color: #ffffffbf;
+        border-radius: 11px;
+    }
+
+    &__locationIcon {
+        width: 15px;
+        height: 15px;
+        stroke: rgb(13, 55, 87);
+    }
+
+    &__timezone {
+        color: #164f7b;
+        margin: 0;
+        display: flex;
+        font-size: 22px;
+    }
+    &__weatherIcon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    &__temp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 15px 0;
+        font-size: 96px;
+        color: #154e79;
+    }
+
+    &__descr {
+        color: #2574b1;
+        font-size: 20px;
+    }
+    &__data {
+        font-size: 14px;
+        text-transform: lowercase;
+    }
+}
+.sliderBox {
+    // width: 100%;
+    margin: 0 auto;
+}
+.sliderBox input {
+    position: absolute;
+    bottom: 200px;
+    width: 400px;
     margin: 0;
-    padding: 50px 10px 50px 10px;
-    text-align: start;
-    font-size: 18px;
-    background-color: white;
-    border-radius: 7px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.weather__timezone {
-    margin: 15px 0 15px 0;
-    display: flex;
-    font-size: 28px;
-}
-.weather__icon {
-    width: 100%;
-}
-.weather__temp {
-    margin: 15px 0 15px 0;
-    font-size: 50px;
-}
-
-.weather__tempC {
-    vertical-align: super;
-    font-size: 26px;
+    transform-origin: 75px 75px;
+    transform: rotate(-90deg);
 }
