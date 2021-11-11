@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import Weather from '../../components/Weather';
 import { WeatherData } from '../../interfaces';
@@ -10,7 +10,6 @@ const MainPage: FC = () => {
   const URL = `https://api.openweathermap.org/data/2.5/onecall`;
   const API_KEY = `b7d55f8a0402dab6e56b6a6e89b0c97d`;
 
-  // const dispatch = useDispatch();
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [data, setData] = useState<WeatherData>();
@@ -35,9 +34,7 @@ const MainPage: FC = () => {
   }, [lat, lon]);
 
   return (
-    // const weatherData=data
-
-    <div className={s.mainPage}>
+       <div className={s.mainPage}>
       {!data ? (
         <div className={s.loader}>
           <Loader
@@ -45,7 +42,7 @@ const MainPage: FC = () => {
             color="#00BFFF"
             height={100}
             width={100}
-            timeout={3000} //3 secs
+            timeout={3000}
           />
         </div>
       ) : (

@@ -1,114 +1,118 @@
-import { Box, Slider } from '@mui/material';
 import moment from 'moment';
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { WeatherData } from '../../interfaces';
+import location from '../../assets/weather/location.svg';
 
 import s from './Weather.module.scss';
+
+const colors = {
+  freezing: '#00ffff',
+  middle: '#fff700',
+  higher: '#ff8c00',
+
+  orange: '#ffb84d',
+  yellow: '#ffff99',
+  green: '#66ff66',
+  aqua: '#80ffff',
+  blue: '#33d6ff',
+  violet: '#b380ff',
+  purple: '#9900cc',
+};
 
 type WeatherProps = {
   weatherData: WeatherData;
 };
-
 const Weather: FC<WeatherProps> = ({ weatherData }) => {
   console.log('weatherData', weatherData);
 
   let temp = Math.floor(weatherData.current.temp);
-  let fellsLike = Math.floor(weatherData.current.feels_like);
+  let feelsLike = Math.floor(weatherData.current.feels_like);
   let description = weatherData.current.weather[0].description;
   let humidity = weatherData.current.humidity;
-  let data = moment().format('MMMM Do, h:mm a');
+  let data = moment().format('dddd D MMM');
+  // let data = moment().format('dddd D MMM h:mm a');
   let icon = weatherData.current.weather[0].icon;
   let url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  const loc = weatherData.timezone;
+  const city = loc.split('/');
+  console.log(city);
 
   const [valueTemperature, setValueTemperature] = useState(temp);
-
-  const colors = {
-    freezing: '#00ffff',
-    middle: '#fff700',
-    higher: '#ff8c00',
-
-    orange: '#ffb84d',
-    yellow: '#ffff99',
-    green: ' #ccff99',
-    aqua: '#b3ffff',
-    blue: '#66c2ff',
-    violet: '#bf00ff',
-  };
 
   const cardColor = (temp: number) => {
     console.log('temp', temp);
 
-    if (temp <= -10) {
-      return colors.violet;
-    }
-    if (temp > -5 && temp <= 0) {
-      return colors.blue;
-    }
-    if (temp > 0 && temp <= 9) {
-      return colors.freezing;
-    }
-    if (temp > 9 && temp <= 14) {
-      return colors.green;
-    }
-    if (temp > 14 && temp < 24) {
-      return colors.yellow;
-    }
-    if (temp >= 24) {
-      return colors.orange;
+    switch (true) {
+      case temp <= -25:
+        return colors.purple;
+      case temp > -25 && temp <= -15:
+        return colors.violet;
+      case temp > -15 && temp <= -10:
+        return colors.blue;
+      case temp > -10 && temp <= 0:
+        return colors.freezing;
+      case temp > 0 && temp <= 5:
+        return colors.aqua;
+      case temp > 5 && temp <= 14:
+        return colors.green;
+      case temp > 14 && temp < 20:
+        return colors.yellow;
+      case temp > 20 && temp < 25:
+        return colors.middle;
+      case temp > 25 && temp < 30:
+        return colors.orange;
+      case temp >= 30:
+        return colors.higher;
     }
   };
-
-  // #00ffff for -10 degrees and below
-  // #fff700 for +10 degrees
-  // #ff8c00 for +30 degrees and above
 
   return (
     <>
       <div
-        className={s.weather__card}
+        className={s.weather__color}
         style={{
-          background: `radial-gradient(${cardColor(
+          background: `linear-gradient(to top, ${cardColor(
             valueTemperature,
-          )}, 20%, white)`,
+          )}, 30%, white)`,
         }}
-
-        // style={{
-        //   background: `linear-gradient(to top, ${colors.freezing}, ${colors.middle}, ${colors.higher})`,
-        // }}
-
-        // style={{
-        //   background: `linear-gradient(90deg, ${colors.freezing} 0%, ${
-        //     colors.middle
-        //   } ${temp + 50}%, ${colors.higher} 100%)`,
-        // }}
       >
-        <img src={url} alt={description} width="100" height="100"></img>
-        <span>{description}</span>
-        <div className={s.weather__temp}>
-          {!valueTemperature ? (
-            <>
-              <span>{temp}</span>
-              <span className={s.weather__tempC}>℃</span>
-            </>
-          ) : (
-            <>
-              <span>{valueTemperature}</span>
-              <span className={s.weather__tempC}>℃</span>
-            </>
-          )}
+        <div className={s.weather__card}>
+          <div className={s.weather__timezone}>
+            <img
+              src={location}
+              alt="location icon"
+              className={s.weather__locationIcon}
+            ></img>
+            <span>{city[1]}</span>
+          </div>
+          <div className={s.weather__data}>{data}</div>
+          <div className={s.weather__weatherIcon}>
+            <img src={url} alt={description}></img>
+          </div>
+
+          <div className={s.weather__temp}>
+            {!valueTemperature ? (
+              <span>{temp}°</span>
+            ) : (
+              <span>{valueTemperature}°</span>
+            )}
+            <span className={s.weather__descr}>{description}</span>
+          </div>
+
+          <div>
+            feels like
+            <span> {feelsLike}</span>
+            <span>°</span>
+          </div>
+
+          <div className={s.weather__humidity}>humidity {humidity}%</div>
         </div>
-        <div>Fells like {fellsLike}℃</div>
-        <span>Humidity {humidity}%</span>
-        <div className={s.weather__timezone}>{weatherData.timezone}</div>
-        <span>{data}</span>
       </div>
-      <div className={s.weather__sliderBox}>
+      <div className={s.sliderBox}>
         <input
-          className={s.weather__slider}
           type="range"
           min="-50"
           max="50"
-          defaultValue={temp}
           value={valueTemperature}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setValueTemperature(+e.target.value)

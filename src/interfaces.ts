@@ -8,7 +8,7 @@ export interface Weather {
 export interface WeatherData {
   lon: number;
   lat: number;
-  timezone: number;
+  timezone: string;
   timezone_offset: number;
   current: {
     clouds: number;
