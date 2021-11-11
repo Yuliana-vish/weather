@@ -31,10 +31,11 @@ const MainPage: FC = () => {
         });
     };
     fetchData();
+    // eslint-disable-next-line
   }, [lat, lon]);
 
   return (
-       <div className={s.mainPage}>
+    <div className={s.mainPage}>
       {!data ? (
         <div className={s.loader}>
           <Loader
